@@ -1,11 +1,5 @@
 import connectMongo from '../../../database/conn';
-import {
-  deleteUser,
-  getUser,
-  getUsers,
-  postUser,
-  updateUser,
-} from '../../../database/controller';
+import { deleteUser, getUser, updateUser } from '../../../database/controller';
 
 export default async function handler(req, res) {
   connectMongo().catch(() =>
@@ -16,6 +10,12 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       getUser(req, res);
+      break;
+    case 'PUT':
+      updateUser(req, res);
+      break;
+    case 'DELETE':
+      deleteUser(req, res);
       break;
 
     default:
