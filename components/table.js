@@ -1,8 +1,9 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { BiEdit, BiTrashAlt } from 'react-icons/bi';
 import data from '../database/data.json';
+import { getUsers } from '../lib/helper';
 
-const Table = () => {
+const Table = ({ message }) => {
   return (
     <table className='min-w-full table-auto'>
       <thead>

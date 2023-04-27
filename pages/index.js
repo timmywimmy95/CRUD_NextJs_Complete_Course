@@ -5,12 +5,22 @@ import { BiUserPlus } from 'react-icons/bi';
 import Table from '../components/table';
 import Form from '../components/Form';
 import { useState } from 'react';
+import handler from './api/cors';
 
-export default function Home() {
+export async function getServerSideProps() {
+  const response = await fetch('http://localhost:3000/api/carpark');
+  const data = await response.json();
+  return {
+    props: { carparks: data },
+  };
+}
+
+export default function Home({ carparks }) {
   const [visible, setVisible] = useState(false);
   const formHandler = () => {
     setVisible(!visible);
   };
+  console.log(carparks);
   return (
     <section>
       <Head>
