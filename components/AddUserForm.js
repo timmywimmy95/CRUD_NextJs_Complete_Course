@@ -4,6 +4,8 @@ import { useReducer } from 'react';
 import { BiPlus } from 'react-icons/bi';
 import Success from './Success';
 import Bug from './Bug';
+import { useQueryClient, useMutation } from 'react-query';
+import { addUser } from '../lib/helper';
 
 const formReducer = (state, event) => {
   return {
@@ -14,12 +16,21 @@ const formReducer = (state, event) => {
 
 const AddUserForm = () => {
   const [formData, setFormData] = useReducer(formReducer, {});
+  const addMutation = useMutation(addUser, {
+    onSuccess: () => {
+      console.log('Data inserted');
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (Object.keys(formData).length === 0)
       return console.log('Form data empty');
-    console.log(formData);
+    let { firstName, lastName, email, salary, date, status } = formData;
+    const model = {
+      name: `${firstName} ${lastName}`,
+      avatar: ``,
+    };
   };
 
   if (Object.keys(formData).length > 0)
