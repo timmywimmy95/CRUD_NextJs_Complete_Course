@@ -2,8 +2,13 @@ import { useState, useEffect } from 'react';
 import { BiEdit, BiTrashAlt } from 'react-icons/bi';
 import data from '../database/data.json';
 import { getUsers } from '../lib/helper';
+import { useQuery } from 'react-query';
 
-const Table = ({ message }) => {
+const Table = () => {
+  const { isLoading, isError, data, error } = useQuery('users', getUsers);
+  if (isLoading) return <div>Loading</div>;
+  if (isError) return <div>Error returning users</div>;
+
   return (
     <table className='min-w-full table-auto'>
       <thead>
@@ -57,7 +62,11 @@ function Tr({ id, name, avatar, email, salary, date, status }) {
       </td>
       <td className='px-16 py-2'>
         <button className='cursor'>
-          <span className='bg-green-500 text-white px-5 py-1 rounded-full'>
+          <span
+            className={`${
+              status === 'Active' ? 'bg-green-500' : 'bg-rose-500'
+            } text-white px-5 py-1 rounded-full`}
+          >
             {status || 'Unknown'}
           </span>
         </button>
